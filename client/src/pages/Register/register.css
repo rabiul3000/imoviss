@@ -1,0 +1,23 @@
+.loginRegisterPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+}
+
+.loginPage,
+.registerPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20vh;
+}
+
+.loginForm,
+.registerForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

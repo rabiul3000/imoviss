@@ -1,0 +1,35 @@
+.home {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Helvetica;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatMenu {
+    border: 1px solid lightgrey;
+    width: 15%;
+    height: 100%;
+
+}
+
+.chatMenu__title {
+    cursor: pointer;
+    display: flex;
+}
+
+.chatMenu__titleLeft {
+    width: 100%;
+    color: green;
+    padding: 1rem;
+    font-weight: 600;
+}
+
+.chatMenu__titleRight {
+    width: 100%;
+    color: green;
+    padding: 1rem;
+    font-weight: 600;
+
+}
