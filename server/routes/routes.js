@@ -26,7 +26,7 @@ routes.delete('/allusers', deleteAllUsers);
 
 // message routes
 routes.post('/messages/send/:id', isAuthorized, sendMessage);
-routes.get('/messages/:id', isAuthorized, getMessages);
+routes.get('/messages/:receiverId', isAuthorized, getMessages);
 
 
 

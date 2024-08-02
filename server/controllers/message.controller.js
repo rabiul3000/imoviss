@@ -1,5 +1,6 @@
 import Conversation from '../models/conversation.model.js';
 import Message from '../models/message.model.js';
+import { getReceiverId, io } from '../socket/socket.js';
 
 export const sendMessage = async (req, res) => {
 	const receiverId = await req.params.id; // the reciever id
@@ -23,7 +24,19 @@ export const sendMessage = async (req, res) => {
 		if (newMessage) {
 			conversation.messages.push(newMessage._id);
 		}
+
 		await Promise.all([conversation.save(), newMessage.save()]);
+
+		// socket logic
+
+		const receiverSocketId = getReceiverId(receiverId);
+
+		if(receiverSocketId) {
+			io.to(receiverSocketId).emit('newMessage', newMessage);
+		}
+
+
+
 		return res.status(201).json(newMessage);
 	} catch (error) {
 		return res.status(403).json(error.message);
@@ -32,14 +45,15 @@ export const sendMessage = async (req, res) => {
 
 export const getMessages = async (req, res) => {
 	try {
-		const { id: receiverId } = req.params; //id of other user
+		
+		const { receiverId } = req.params; //id of other user
 		const senderId = req.user._id; //id of the current logged in user or me;
-
+		
 		const conversation = await Conversation.findOne({
 			participants: { $all: [senderId, receiverId] },
 		}).populate('messages');
 
-		if (!conversation) return res.status(400).json([]);
+		if (!conversation) return res.status(200).json([]);
 		const { messages } = conversation;
 
 		return res.status(200).json(messages);

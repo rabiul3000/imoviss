@@ -1,23 +1,37 @@
 import React from 'react';
+import { useAuthContext } from '../../context/AuthContext';
+import useConversation from '../../zustand/useConversation';
+import { format } from 'timeago.js';
 
-const Message = () => {
+const Message = ({ message }) => {
+	//createdAt, message, receiverId, senderId, updatedAt
+
+	const { authUser } = useAuthContext();
+	const { selectedConversation } = useConversation();
+
+	const myMessage = message.senderId === authUser?.user._id;
+
+	const modifiedClassName = myMessage ? 'chat-end' : 'chat-start';
+	const profilePicSrc = myMessage
+		? authUser?.user.avatar
+		: selectedConversation?.avatar;
+	const bgColorOfBubble = myMessage && 'bg-blue-500';
+	const shake = message.shake && 'shake';
+
 	return (
-		<div className='chat chat-end'>
+		<div
+			className={`chat ${modifiedClassName} py-4 cursor-pointer hover:opacity-90 `}
+		>
 			<div className='chat-image avatar'>
 				<div className='w-10 rounded-full'>
-					<img
-						alt='Tailwind CSS chat bubble component'
-						src='https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg'
-					/>
+					<img alt='user' src={profilePicSrc} />
 				</div>
 			</div>
-			<div className={`chat-bubble text-white bg-blue-500`}>
-				hi there! whats up
+			<div className={`${shake} chat-bubble text-white ${bgColorOfBubble}`}>
+				{message.message}
 			</div>
-			<div
-				className={`chat-footer opacity-50 text-xs text-white flex gap-1 items-center`}
-			>
-				12:17
+			<div className='chat-footer opacity-50 text-xs text-white flex gap-1 items-center'>
+				{format(message.createdAt)}
 			</div>
 		</div>
 	);
