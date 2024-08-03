@@ -1,7 +1,0 @@
-.app {
-	-ms-overflow-style: none !important; /* IE and Edge */
-	scrollbar-width: none !important; /* Firefox */
-}
-.app::-webkit-scrollbar {
-	display: none !important;
-}
