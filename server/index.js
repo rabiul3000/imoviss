@@ -9,7 +9,7 @@ import { connectDB } from './config/database.js';
 import { app, server } from './socket/socket.js';
 import cspConfig from './utils/cspConfig.js';
 
-// const __dirname = path.resolve();
+const __dirname = path.resolve();
 
 dotenv.config();
 
