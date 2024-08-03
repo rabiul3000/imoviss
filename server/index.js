@@ -9,7 +9,6 @@ import { connectDB } from './config/database.js';
 import { app, server } from './socket/socket.js';
 import cspConfig from './utils/cspConfig.js';
 
-const __dirname = path.resolve();
 
 dotenv.config();
 
@@ -22,11 +21,6 @@ app.use(morgan('dev'));
 
 app.use('/api', routes);
 
-app.use(express.static(path.join(__dirname, '/client/dist')));
-
-app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-});
 
 const port = process.env.PORT;
 

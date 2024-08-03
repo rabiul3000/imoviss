@@ -12,7 +12,6 @@ import { getUsersForSidebar } from '../controllers/user.controller.js';
 
 const routes = Router();
 
-routes.get('/', (req, res) => res.status(200).json('server is running'));
 
 routes.post('/register', signUp);
 routes.post('/login', login);
