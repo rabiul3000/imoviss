@@ -19,6 +19,7 @@ app.use(helmet({ contentSecurityPolicy: cspConfig }));
 app.use(cookieParser());
 app.use(morgan('dev'));
 
+app.get('/', (req,res) => res.status(200).json('server is running'))
 app.use('/api', routes);
 
 app.use(express.static(path.join(__dirname, '/client/dist')));
